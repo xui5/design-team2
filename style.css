@@ -657,17 +657,12 @@ body::after {
     font-size: 1.1rem;
     font-family: 'Beiruti', sans-serif;
 }
-
 .supervisor {
-    color: #fff;
-    font-size: 1.2rem;
-    background: rgba(0, 57, 166, 0.25);
-    padding: 12px 35px;
-    border-radius: 50px;
-    border: 1px solid #d9042b;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
     font-family: 'Beiruti', sans-serif;
-    font-weight: 600;
-    backdrop-filter: blur(5px);
+    font-weight: 500;
+    /* تم إزالة الخلفية والحدود والتأثيرات */
 }
 
 /* الواتساب */
