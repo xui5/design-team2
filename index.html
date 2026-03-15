@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقاط فريق التصميم</title>
+    <!-- الخط Beiruti -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Beiruti:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- ملف التنسيقات -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- شاشة التحميل -->
+    <div class="loader-wrapper">
+        <img src="assets/lod1.png" alt="Loading..." class="loader-image">
+        
+    </div>
+
+    <!-- صورة الخلفية الكبيرة -->
+    <div class="large-bg-image">
+        <img src="assets/data.svg" alt="Background" class="bg-image">
+    </div>
+
+    <!-- العناصر المضيئة -->
+    <div class="floating-elements">
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="content">
+        <!-- الهيدر -->
+        <header class="glass-header">
+            <div class="logo-container">
+                <img src="assets/log1.png" alt="شعار النادي" class="logo logo-large">
+            </div>
+        </header>
+
+        <!-- العنوان الرئيسي (النص الجديد) -->
+        <section class="hero-section">
+            <h1 class="main-title">نقاط فريق التصميم</h1>
+            <p class="subtitle">تعرض هذه الصفحة نقاط أعضاء فريق التصميم استنادًا إلى المهام والتصاميم التي تم إنجازها، ويتم تحديثها بشكل مستمر</p>
+        </section>
+
+        <!-- المربع الرئيسي (بنود النقاط) -->
+        <section class="main-card glass-card" id="mainCard">
+            <h2 class="card-title">بنود النقاط</h2>
+            <div class="points-items">
+                <div class="item">
+                    <span class="item-name">بوست</span>
+                    <span class="item-value blue-value">1</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">ملف بوربوينت او كتيب</span>
+                    <span class="item-value blue-value">6</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">اقتراح</span>
+                    <span class="item-value blue-value">0.5</span>
+                </div>
+                <div class="item">
+                    <span class="item-name">تعديل</span>
+                    <span class="item-value blue-value">0.5</span>
+                </div>
+            </div>
+        </section>
+  <!-- قسم أفضل 3 أعضاء -->
+        <section class="top-three-section">
+            <h2 class="top-three-title">أفضل 3 أعضاء</h2>
+            <div class="top-three-items">
+                <div class="top-item">
+                    <span class="top-rank">🥇</span>
+                    <span class="top-name">فرح الشمري</span>
+                    <span class="top-points">24 نقطة</span>
+                </div>
+                <div class="top-item">
+                    <span class="top-rank">🥈</span>
+                    <span class="top-name">ريم الحربي</span>
+                    <span class="top-points">10 نقاط</span>
+                </div>
+                <div class="top-item">
+                    <span class="top-rank">🥉</span>
+                    <span class="top-name">معاذ الحربي</span>
+                    <span class="top-points">8 نقاط</span>
+                </div>
+            </div>
+        </section>
+        <!-- عنوان قسم الأعضاء -->
+        <h2 class="team-title">أعضاء فريق التصميم</h2>
+
+        <!-- بطاقات الأعضاء -->
+        <section class="team-grid">
+            <!-- فرح الشمري - قائد الفريق -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">فرح الشمري</h3>
+                <div class="member-role">قائد الفريق</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">14</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">7</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">0.5</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">2.5</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">24</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('فرح')">عرض التفاصيل</button>
+            </div>
+
+            <!-- معاذ الحربي - نائب قائد الفريق -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar male">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">معاذ الحربي</h3>
+                <div class="member-role">نائب قائد الفريق</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">8</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">8</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('معاذ')">عرض التفاصيل</button>
+            </div>
+
+            <!-- هبه التميمي - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">هبه التميمي</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">0</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('هبه')">عرض التفاصيل</button>
+            </div>
+
+            <!-- ريم الحربي - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">ريم الحربي</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">4</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">6</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">10</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('ريم')">عرض التفاصيل</button>
+            </div>
+
+            <!-- البندري السرباتي - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">البندري السرباتي</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">1</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">6</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">7</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('البندري')">عرض التفاصيل</button>
+            </div>
+
+            <!-- سارة البراك - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">سارة البراك</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">6</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">6</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('سارة البراك')">عرض التفاصيل</button>
+            </div>
+
+            <!-- أثير الفايز - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">أثير الفايز</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">6</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">6</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('أثير')">عرض التفاصيل</button>
+            </div>
+
+            <!-- سارة السعود - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">سارة السعود</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">5</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">5</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('سارة السعود')">عرض التفاصيل</button>
+            </div>
+
+            <!-- شذى الرشيدي - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">شذى الرشيدي</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">3</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">1</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">4</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('شذى')">عرض التفاصيل</button>
+            </div>
+
+            <!-- رفيدة جابر - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">رفيدة جابر</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">0</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('رفيدة')">عرض التفاصيل</button>
+            </div>
+
+            <!-- خوله السديس - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">خوله السديس</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">0</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('خوله')">عرض التفاصيل</button>
+            </div>
+
+            <!-- تسنيم كريم - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">تسنيم كريم</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">0</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('تسنيم')">عرض التفاصيل</button>
+            </div>
+
+            <!-- سعود التميمي - عضو -->
+            <div class="member-card glass-card">
+                <div class="avatar-container">
+                    <div class="avatar male">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <h3 class="member-name">سعود التميمي</h3>
+                <div class="member-role">عضو</div>
+                <div class="points-details">
+                    <div class="point-item">
+                        <span>بوستات</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>ملف</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>اقتراح</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item">
+                        <span>تعديل</span>
+                        <span class="point-value white-value">-</span>
+                    </div>
+                    <div class="point-item total">
+                        <span>المجموع</span>
+                        <span class="total-value blue-total">0</span>
+                    </div>
+                </div>
+                <button class="details-btn" onclick="openPopup('سعود')">عرض التفاصيل</button>
+            </div>
+
+        </section>
+
+        <!-- الفوتر -->
+            
+        <footer class="glass-footer">
+            <div class="footer-content">
+                <div class="copyright">
+                    © 2026 ® جميع الحقوق محفوظة
+                </div>
+                <div class="supervisor">
+                    الإشراف والمتابعة قائد فريق التصميم: فرح عبدالله الشمري
+                </div>
+                <a href="https://wa.me/966556418784" target="_blank" class="whatsapp-circle">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- نافذة التفاصيل المنبثقة -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <h3 id="popup-title"></h3>
+            <div id="popup-body" class="popup-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
