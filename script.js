@@ -6,25 +6,32 @@ window.addEventListener('load', function() {
     renderAllMembers();
 });
 
+// ===== عرض الأعضاء =====
 function renderAllMembers() {
     const grid = document.getElementById('teamGrid');
     const topContainer = document.getElementById('topThreeContainer');
     if (!grid) return;
     
-    const sorted = [...membersData].sort((a, b) => b.total - a.total);
-    
+    // أفضل 3 (مع أزرار ترتيب)
     if (topContainer) {
-        const top3 = sorted.slice(0, 3);
+        const top3 = membersData.slice(0, 3);
         const medals = ['🥇', '🥈', '🥉'];
         topContainer.innerHTML = top3.map((m, i) => `
             <div class="top-item">
                 <span class="top-rank">${medals[i]}</span>
                 <span class="top-name">${m.name}</span>
                 <span class="top-points">${m.total} نقطة</span>
+                ${isAdminMode ? `
+                <div class="top-move-buttons">
+                    <button class="move-btn" onclick="moveTopUp(${i})" ${i === 0 ? 'disabled' : ''}>⬆️</button>
+                    <button class="move-btn" onclick="moveTopDown(${i})" ${i === 2 ? 'disabled' : ''}>⬇️</button>
+                </div>
+                ` : ''}
             </div>
         `).join('');
     }
     
+    // كل الأعضاء مع حقول التعديل
     grid.innerHTML = membersData.map((m, index) => `
         <div class="member-card glass-card" data-index="${index}">
             <div class="avatar-container">
@@ -71,6 +78,7 @@ function renderAllMembers() {
         </div>
     `).join('');
     
+    // زر إضافة عضو
     const existingBtn = document.querySelector('.add-member-btn');
     if (!existingBtn) {
         const addBtn = document.createElement('button');
@@ -182,7 +190,11 @@ function disableAdminMode() {
     alert('✅ تم الخروج من وضع التعديل');
 }
 
-// ===== دوال التعديل اليدوي =====
+// =============================================
+// ===== دوال التعديل =====
+// =============================================
+
+// حفظ بيانات العضو
 function saveMemberData(index) {
     const card = document.querySelectorAll('.member-card')[index];
     if (!card) return;
@@ -209,6 +221,7 @@ function saveMemberData(index) {
     alert('✅ تم حفظ التغييرات!');
 }
 
+// حذف عضو
 function deleteMember(index) {
     if (confirm(`هل أنت متأكد من حذف ${membersData[index].name}؟`)) {
         membersData.splice(index, 1);
@@ -217,6 +230,7 @@ function deleteMember(index) {
     }
 }
 
+// إضافة عضو
 function addNewMember() {
     membersData.push({
         id: Date.now(),
@@ -234,7 +248,7 @@ function addNewMember() {
     alert('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
 }
 
-// ===== أزرار الترتيب =====
+// ===== ترتيب الأعضاء (العاديين) =====
 function moveUp(index) {
     if (index === 0) return;
     const temp = membersData[index];
@@ -251,4 +265,31 @@ function moveDown(index) {
     membersData[index + 1] = temp;
     renderAllMembers();
     alert('✅ تم تغيير الترتيب!');
+}
+
+// ===== ترتيب أفضل 3 =====
+function moveTopUp(index) {
+    if (index === 0) return;
+    const top3 = membersData.slice(0, 3);
+    const temp = top3[index];
+    top3[index] = top3[index - 1];
+    top3[index - 1] = temp;
+    membersData[0] = top3[0];
+    membersData[1] = top3[1];
+    membersData[2] = top3[2];
+    renderAllMembers();
+    alert('✅ تم تغيير ترتيب أفضل 3!');
+}
+
+function moveTopDown(index) {
+    if (index === 2) return;
+    const top3 = membersData.slice(0, 3);
+    const temp = top3[index];
+    top3[index] = top3[index + 1];
+    top3[index + 1] = temp;
+    membersData[0] = top3[0];
+    membersData[1] = top3[1];
+    membersData[2] = top3[2];
+    renderAllMembers();
+    alert('✅ تم تغيير ترتيب أفضل 3!');
 }
