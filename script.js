@@ -61,7 +61,7 @@ function renderAllMembers() {
         </div>
     `).join('');
     
-    // زر إضافة عضو جديد (يظهر فقط في وضع التعديل)
+    // زر إضافة عضو جديد
     const existingBtn = document.querySelector('.add-member-btn');
     if (!existingBtn) {
         const addBtn = document.createElement('button');
@@ -72,7 +72,7 @@ function renderAllMembers() {
     }
 }
 
-// ===== النافذة المنبثقة =====
+// ===== النافذة المنبثقة للتفاصيل =====
 function openPopup(name) {
     const popup = document.getElementById('popup');
     const title = document.getElementById('popup-title');
@@ -119,7 +119,7 @@ if (mainCard) {
     });
 }
 
-// ===== حركة العناصر =====
+// ===== حركة العناصر المضيئة =====
 document.addEventListener('mousemove', function(e) {
     const elements = document.querySelectorAll('.element');
     const mouseX = e.clientX / window.innerWidth;
@@ -130,31 +130,30 @@ document.addEventListener('mousemove', function(e) {
     });
 });
 
-// ===== إدارة وضع الأدمن =====
+// =============================================
+// ===== إدارة الأدمن (تسجيل الدخول والتعديل) =====
+// =============================================
+
 let isAdminMode = false;
 
-// فتح/إغلاق نافذة تسجيل الدخول
+// فتح نافذة تسجيل الدخول
 function toggleAdminPopup() {
     const popup = document.getElementById('adminPopup');
     popup.classList.toggle('show');
 }
 
+// إغلاق نافذة تسجيل الدخول
 function closeAdminPopup() {
     document.getElementById('adminPopup').classList.remove('show');
 }
 
-// تسجيل دخول الأدمن
+// تسجيل الدخول
 function adminLogin() {
     const user = document.getElementById('popupUser').value.trim();
     const pass = document.getElementById('popupPass').value.trim();
     const error = document.getElementById('popupError');
     
-    const adminCredentials = {
-        username: "admin",
-        password: "admin123"
-    };
-    
-    if (user === adminCredentials.username && pass === adminCredentials.password) {
+    if (user === "admin" && pass === "admin123") {
         error.style.display = 'none';
         closeAdminPopup();
         enableAdminMode();
@@ -169,17 +168,19 @@ function enableAdminMode() {
     isAdminMode = true;
     document.body.classList.add('edit-mode');
     document.getElementById('adminModeBtn').classList.add('show');
-    document.querySelector('.add-member-btn').style.display = 'block';
+    const addBtn = document.querySelector('.add-member-btn');
+    if (addBtn) addBtn.style.display = 'block';
     renderAllMembers();
     alert('✅ تم تفعيل وضع التعديل!');
 }
 
-// تعطيل وضع التعديل
+// الخروج من وضع التعديل
 function disableAdminMode() {
     isAdminMode = false;
     document.body.classList.remove('edit-mode');
     document.getElementById('adminModeBtn').classList.remove('show');
-    document.querySelector('.add-member-btn').style.display = 'none';
+    const addBtn = document.querySelector('.add-member-btn');
+    if (addBtn) addBtn.style.display = 'none';
     renderAllMembers();
     alert('✅ تم الخروج من وضع التعديل');
 }
