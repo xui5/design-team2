@@ -1,3 +1,5 @@
+
+
 window.addEventListener('load', function() {
     setTimeout(() => {
         const loader = document.querySelector('.loader-wrapper');
@@ -53,7 +55,7 @@ function renderAllMembers() {
                 <input type="number" value="${m.suggestions}" placeholder="اقتراحات">
                 <input type="number" value="${m.edits}" placeholder="تعديلات">
                 
-                <select class="edit-role-select">
+                <select class="edit-role-select" onchange="updateRole(${index}, this.value)">
                     <option value="قائد الفريق" ${m.role === 'قائد الفريق' ? 'selected' : ''}>قائد الفريق</option>
                     <option value="نائب قائد الفريق" ${m.role === 'نائب قائد الفريق' ? 'selected' : ''}>نائب قائد الفريق</option>
                     <option value="عضو" ${m.role === 'عضو' ? 'selected' : ''}>عضو</option>
@@ -64,12 +66,6 @@ function renderAllMembers() {
                 <div class="edit-btn-group">
                     <button class="save-edit-btn" onclick="saveMemberData(${index})">💾 حفظ</button>
                     <button class="delete-member-btn" onclick="deleteMember(${index})">🗑️ حذف</button>
-                </div>
-                
-                <!-- ===== أزرار ترتيب الأعضاء ===== -->
-                <div class="move-buttons">
-                    <button class="move-btn" onclick="moveUp(${index})" ${index === 0 ? 'disabled' : ''}>⬆️</button>
-                    <button class="move-btn" onclick="moveDown(${index})" ${index === membersData.length - 1 ? 'disabled' : ''}>⬇️</button>
                 </div>
             </div>
         </div>
@@ -86,7 +82,7 @@ function renderAllMembers() {
     }
 }
 
-// ===== النافذة المنبثقة =====
+// ===== النافذة المنبثقة للتفاصيل =====
 function openPopup(name) {
     const popup = document.getElementById('popup');
     const title = document.getElementById('popup-title');
@@ -177,7 +173,7 @@ function enableAdminMode() {
     const addBtn = document.querySelector('.add-member-btn');
     if (addBtn) addBtn.style.display = 'block';
     renderAllMembers();
-    alert('✅ تم تفعيل وضع التعديل!');
+    showCustomPopup('✅ تم تفعيل وضع التعديل');
 }
 
 function disableAdminMode() {
@@ -187,7 +183,7 @@ function disableAdminMode() {
     const addBtn = document.querySelector('.add-member-btn');
     if (addBtn) addBtn.style.display = 'none';
     renderAllMembers();
-    alert('✅ تم الخروج من وضع التعديل');
+    showCustomPopup('✅ تم الخروج من وضع التعديل');
 }
 
 // =============================================
@@ -211,21 +207,20 @@ function saveMemberData(index) {
     membersData[index].edits = parseFloat(inputs[4]?.value) || 0;
     membersData[index].details = detailsInput ? detailsInput.value : membersData[index].details;
     
-    // حساب المجموع تلقائياً
     membersData[index].total = membersData[index].posts + 
                                (membersData[index].files * 6) + 
                                (membersData[index].suggestions * 0.5) + 
                                (membersData[index].edits * 0.5);
     
     renderAllMembers();
-    alert('✅ تم حفظ التغييرات!');
+    showCustomPopup('✅ تم حفظ التغييرات بنجاح!');
 }
 
 function deleteMember(index) {
     if (confirm(`هل أنت متأكد من حذف ${membersData[index].name}؟`)) {
         membersData.splice(index, 1);
         renderAllMembers();
-        alert('✅ تم حذف العضو!');
+        showCustomPopup('✅ تم حذف العضو!');
     }
 }
 
@@ -243,24 +238,32 @@ function addNewMember() {
         details: "أضف التفاصيل هنا..."
     });
     renderAllMembers();
-    alert('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
+    showCustomPopup('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
 }
 
-// ===== ترتيب الأعضاء =====
-function moveUp(index) {
-    if (index === 0) return;
-    const temp = membersData[index];
-    membersData[index] = membersData[index - 1];
-    membersData[index - 1] = temp;
+// ===== تغيير المنصب فوراً =====
+function updateRole(index, newRole) {
+    membersData[index].role = newRole;
     renderAllMembers();
-    alert('✅ تم تغيير الترتيب!');
+    showCustomPopup('✅ تم تغيير المنصب إلى ' + newRole);
 }
 
-function moveDown(index) {
-    if (index === membersData.length - 1) return;
-    const temp = membersData[index];
-    membersData[index] = membersData[index + 1];
-    membersData[index + 1] = temp;
-    renderAllMembers();
-    alert('✅ تم تغيير الترتيب!');
+// ===== نافذة التعديل المنبثقة (بدل التنبيهات) =====
+function showCustomPopup(message) {
+    const oldPopup = document.querySelector('.custom-popup');
+    if (oldPopup) oldPopup.remove();
+    
+    const popup = document.createElement('div');
+    popup.className = 'custom-popup';
+    popup.innerHTML = `
+        <div class="custom-popup-content">
+            <div class="custom-popup-icon">✅</div>
+            <p>${message}</p>
+        </div>
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => {
+        popup.classList.add('fade-out');
+        setTimeout(() => popup.remove(), 500);
+    }, 2000);
 }
