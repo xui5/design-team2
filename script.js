@@ -3,174 +3,108 @@
 window.addEventListener('load', function() {
     setTimeout(() => {
         const loader = document.querySelector('.loader-wrapper');
-        loader.classList.add('hidden');
+        if (loader) loader.classList.add('hidden');
     }, 1500);
+    renderAllMembers();
 });
 
-// بيانات التفاصيل لكل عضو
-const memberDetails = {
-    'فرح': `فرح: 29.5 نقطة
-    •	الأعمال:
-    •	بوست التسجيل (1)
-    •	3 بوستات Silent Attacks (3)
-    •	3 بوستات رمضان (3)
-    •	3 ستوريات رمضان2 (3)
-    •	إطار الستوري (1)
-    •	3 بوستات النشرة (3)
-    •	كتيب النشرة ملف (6)
-    •	تعديلات Enigma (4 تعديلات × 0.5 = 2)
-    •	تعديل إعلان INE (0.5)
-    •	اقتراح تحسين بوستات القبول (0.5)
-    • 1 بوست تهنئة عيد الاضحى منصة x 
-• 3 بوستات إعلان تعاون أكاديمية سيبراني انستا
-• 2 بوست إعلان تعاون أكاديمية سيبراني منصة x
-        •	اقتراح تحسين بوستات عيد الاضحى انستا (0.5)
+// عرض الأعضاء
+function renderAllMembers() {
+    const grid = document.getElementById('teamGrid');
+    const topContainer = document.getElementById('topThreeContainer');
+    if (!grid) return;
+    
+    const sorted = [...membersData].sort((a, b) => b.total - a.total);
+    
+    // أفضل 3
+    if (topContainer) {
+        const top3 = sorted.slice(0, 3);
+        const medals = ['🥇', '🥈', '🥉'];
+        topContainer.innerHTML = top3.map((m, i) => `
+            <div class="top-item">
+                <span class="top-rank">${medals[i]}</span>
+                <span class="top-name">${m.name}</span>
+                <span class="top-points">${m.total} نقطة</span>
+            </div>
+        `).join('');
+    }
+    
+    // كل الأعضاء
+    grid.innerHTML = membersData.map(m => `
+        <div class="member-card glass-card">
+            <div class="avatar-container">
+                <div class="avatar ${m.gender === 'male' ? 'male' : ''}">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <h3 class="member-name">${m.name}</h3>
+            <div class="member-role">${m.role}</div>
+            <div class="points-details">
+                <div class="point-item"><span>بوستات</span><span class="point-value white-value">${m.posts || '-'}</span></div>
+                <div class="point-item"><span>ملف</span><span class="point-value white-value">${m.files || '-'}</span></div>
+                <div class="point-item"><span>اقتراح</span><span class="point-value white-value">${m.suggestions || '-'}</span></div>
+                <div class="point-item"><span>تعديل</span><span class="point-value white-value">${m.edits || '-'}</span></div>
+                <div class="point-item total"><span>المجموع</span><span class="total-value blue-total">${m.total}</span></div>
+            </div>
+            <button class="details-btn" onclick="openPopup('${m.name}')">عرض التفاصيل</button>
+        </div>
+    `).join('');
+}
 
-    `,
-    
-    'معاذ': `معاذ:11 نقاط
-    •	الأعمال:
-    •	بوست Enigma (1)
-    •	إعلان INE (1)
-    •	6 بوستات القبول (6)
-    •  اقتراح تحسين بوستات النشرة (0.5)
-    •  اقتراح تحسين بوستات كيف تخترق الاجهزة فعلياً (0.5)
-    •  لوحة الاراء(1)
-        •  بطاقة للتوزيعات(1)
-    `
-    ,
-    
-    'ريم': `ريم: 10 نقاط
-    •	الأعمال:
-    •	4 بوستات Enigma (4)
-    •	كتيب النشرة ملف (6)`,
-    
-    'البندري': `البندري: 7.5 نقاط
-    •	الأعمال:
-    •	1 بوست Silent Attacks (1)
-    •	كتيب النشرة ملف (6)
-    •	(0.5) Enigma اقتراح تحسين بوستات 
-    `,
-    
-    'سارة البراك': `سارة البراك: 6 نقاط
-    •	الأعمال:
-    •	3 بوستات Silent Attacks (3)
-    •	3 ستوريات رمضان1 (3)`,
-    
-    'أثير': `أثير: 6 نقاط
-    •	الأعمال:
-    •	3 بوستات Silent Attacks (3)
-    •	3 بوستات النشرة (3)`,
-    
-    'سارة السعود': `سارة السعود: 5 نقاط
-    •	الأعمال:
-    •	5 بوستات Enigma (5)`,
-    
-    'شذى': `شذى: 5.5 نقاط
-    •	الأعمال:
-    •	3 بوستات Enigma (3)
-    •	تعديل بوستات Enigma  ( 3×0.5 )=1.5
-        •	تعديل بوست كيف تخترق الاجهزة فعلياً (2 × 0.5 =1)
-
-    `,
-    
-    'هبه': `هبه التميمي: 5 نقاط
-    • الأعمال:
-    •	(0.5)  اقتراح تحسين بوستات العيد 
-    •	تعديل بوستات العيد  ( 2×0.5 )=1 
-        •	3 بوستات انظمة التقنيات التشغيلية (3)
-          •	اقتراح تحسين بوستات عيد الاضحى انستا (0.5)
-      `,
-    
-    'رفيدة': `رفيدة جابر: 3 نقاط
-    •	الأعمال:
-    •	3 بوستات العيد الفطر (3)
-    `,
-    
-    'خوله': `خوله السديس:3 نقاط
-        •	3 بوستات عيد الاضحى انستا (3)
-    
-    `,
-    
-    'تسنيم': `تسنيم المشيقح:4 نقاط
-    •	الأعمال:
-    •	(0.5)  اقتراح تحسين بوستات العيد 
-      •	3 بوستات كيف تخترق الاجهزة فعلياً (3)
-              •	اقتراح تحسين بوستات عيد الاضحى انستا (0.5)
-    `,
-    
-    'سعود': `سعود التميمي: 0 نقاط
-    •	لا توجد أعمال حالياً`,
-    
-};
-
-// فتح النافذة المنبثقة
+// النافذة المنبثقة
 function openPopup(name) {
     const popup = document.getElementById('popup');
     const title = document.getElementById('popup-title');
     const body = document.getElementById('popup-body');
-    
+    const member = membersData.find(m => m.name === name);
     title.textContent = name;
-    body.textContent = memberDetails[name] || 'لا توجد تفاصيل متاحة';
-    
+    body.textContent = member ? member.details : 'لا توجد تفاصيل';
     popup.classList.add('show');
 }
 
-// إغلاق النافذة المنبثقة
 function closePopup() {
-    const popup = document.getElementById('popup');
-    popup.classList.remove('show');
+    document.getElementById('popup').classList.remove('show');
 }
 
-// إغلاق النافذة عند الضغط خارجها
 window.addEventListener('click', function(e) {
     const popup = document.getElementById('popup');
-    if (e.target === popup) {
-        closePopup();
-    }
+    if (e.target === popup) closePopup();
 });
 
-// تأثيرات عند التمرير
+// تأثيرات التمرير
 window.addEventListener('scroll', function() {
-    const cards = document.querySelectorAll('.member-card');
-    cards.forEach(card => {
+    document.querySelectorAll('.member-card').forEach(card => {
         const rect = card.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight - 100 && rect.bottom > 0;
-        if (isVisible) {
+        if (rect.top < window.innerHeight - 100 && rect.bottom > 0) {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
         }
     });
 });
 
-// تأثيرات على المربع الرئيسي
+// تأثيرات المربع الرئيسي
 const mainCard = document.getElementById('mainCard');
 if (mainCard) {
     mainCard.addEventListener('mousedown', function() {
         this.style.transform = 'translateY(-5px) scale(1.01)';
         this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 255, 255, 0.3)';
     });
-    
     mainCard.addEventListener('mouseup', function() {
         this.style.transform = 'translateY(-10px) scale(1.02)';
     });
-    
     mainCard.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0) scale(1)';
         this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
     });
 }
 
-// حركة العناصر مع الماوس
+// حركة العناصر
 document.addEventListener('mousemove', function(e) {
     const elements = document.querySelectorAll('.element');
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
-    
     elements.forEach((element, index) => {
         const speed = (index + 1) * 20;
-        const x = (mouseX * speed) - (speed / 2);
-        const y = (mouseY * speed) - (speed / 2);
-        element.style.transform = `translate(${x}px, ${y}px)`;
+        element.style.transform = `translate(${(mouseX * speed) - speed/2}px, ${(mouseY * speed) - speed/2}px)`;
     });
 });
