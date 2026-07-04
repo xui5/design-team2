@@ -8,7 +8,7 @@ window.addEventListener('load', function() {
     renderAllMembers();
 });
 
-// عرض الأعضاء
+// ===== عرض الأعضاء =====
 function renderAllMembers() {
     const grid = document.getElementById('teamGrid');
     const topContainer = document.getElementById('topThreeContainer');
@@ -30,8 +30,8 @@ function renderAllMembers() {
     }
     
     // كل الأعضاء
-    grid.innerHTML = membersData.map(m => `
-        <div class="member-card glass-card">
+    grid.innerHTML = membersData.map((m, index) => `
+        <div class="member-card glass-card" data-index="${index}">
             <div class="avatar-container">
                 <div class="avatar ${m.gender === 'male' ? 'male' : ''}">
                     <i class="fas fa-user"></i>
@@ -47,11 +47,32 @@ function renderAllMembers() {
                 <div class="point-item total"><span>المجموع</span><span class="total-value blue-total">${m.total}</span></div>
             </div>
             <button class="details-btn" onclick="openPopup('${m.name}')">عرض التفاصيل</button>
+            <div class="edit-controls">
+                <input type="text" class="edit-name-input" value="${m.name}" placeholder="الاسم">
+                <input type="number" value="${m.posts}" placeholder="بوستات">
+                <input type="number" value="${m.files}" placeholder="ملفات">
+                <input type="number" value="${m.suggestions}" placeholder="اقتراحات">
+                <input type="number" value="${m.edits}" placeholder="تعديلات">
+                <div class="edit-btn-group">
+                    <button class="save-edit-btn" onclick="saveMemberEdit(${index})">💾 حفظ</button>
+                    <button class="delete-member-btn" onclick="deleteMember(${index})">🗑️ حذف</button>
+                </div>
+            </div>
         </div>
     `).join('');
+    
+    // زر إضافة عضو جديد (يظهر فقط في وضع التعديل)
+    const existingBtn = document.querySelector('.add-member-btn');
+    if (!existingBtn) {
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-member-btn';
+        addBtn.textContent = '➕ إضافة عضو جديد';
+        addBtn.onclick = addNewMember;
+        grid.after(addBtn);
+    }
 }
 
-// النافذة المنبثقة
+// ===== النافذة المنبثقة =====
 function openPopup(name) {
     const popup = document.getElementById('popup');
     const title = document.getElementById('popup-title');
@@ -71,7 +92,7 @@ window.addEventListener('click', function(e) {
     if (e.target === popup) closePopup();
 });
 
-// تأثيرات التمرير
+// ===== تأثيرات التمرير =====
 window.addEventListener('scroll', function() {
     document.querySelectorAll('.member-card').forEach(card => {
         const rect = card.getBoundingClientRect();
@@ -82,7 +103,7 @@ window.addEventListener('scroll', function() {
     });
 });
 
-// تأثيرات المربع الرئيسي
+// ===== تأثيرات المربع الرئيسي =====
 const mainCard = document.getElementById('mainCard');
 if (mainCard) {
     mainCard.addEventListener('mousedown', function() {
@@ -98,7 +119,7 @@ if (mainCard) {
     });
 }
 
-// حركة العناصر
+// ===== حركة العناصر =====
 document.addEventListener('mousemove', function(e) {
     const elements = document.querySelectorAll('.element');
     const mouseX = e.clientX / window.innerWidth;
@@ -108,3 +129,108 @@ document.addEventListener('mousemove', function(e) {
         element.style.transform = `translate(${(mouseX * speed) - speed/2}px, ${(mouseY * speed) - speed/2}px)`;
     });
 });
+
+// ===== إدارة وضع الأدمن =====
+let isAdminMode = false;
+
+// فتح/إغلاق نافذة تسجيل الدخول
+function toggleAdminPopup() {
+    const popup = document.getElementById('adminPopup');
+    popup.classList.toggle('show');
+}
+
+function closeAdminPopup() {
+    document.getElementById('adminPopup').classList.remove('show');
+}
+
+// تسجيل دخول الأدمن
+function adminLogin() {
+    const user = document.getElementById('popupUser').value.trim();
+    const pass = document.getElementById('popupPass').value.trim();
+    const error = document.getElementById('popupError');
+    
+    const adminCredentials = {
+        username: "admin",
+        password: "admin123"
+    };
+    
+    if (user === adminCredentials.username && pass === adminCredentials.password) {
+        error.style.display = 'none';
+        closeAdminPopup();
+        enableAdminMode();
+    } else {
+        error.textContent = '❌ اسم المستخدم أو كلمة المرور غير صحيحة';
+        error.style.display = 'block';
+    }
+}
+
+// تفعيل وضع التعديل
+function enableAdminMode() {
+    isAdminMode = true;
+    document.body.classList.add('edit-mode');
+    document.getElementById('adminModeBtn').classList.add('show');
+    document.querySelector('.add-member-btn').style.display = 'block';
+    renderAllMembers();
+    alert('✅ تم تفعيل وضع التعديل!');
+}
+
+// تعطيل وضع التعديل
+function disableAdminMode() {
+    isAdminMode = false;
+    document.body.classList.remove('edit-mode');
+    document.getElementById('adminModeBtn').classList.remove('show');
+    document.querySelector('.add-member-btn').style.display = 'none';
+    renderAllMembers();
+    alert('✅ تم الخروج من وضع التعديل');
+}
+
+// حفظ تعديلات العضو
+function saveMemberEdit(index) {
+    const card = document.querySelectorAll('.member-card')[index];
+    if (!card) return;
+    
+    const inputs = card.querySelectorAll('.edit-controls input');
+    const nameInput = card.querySelector('.edit-name-input');
+    
+    membersData[index].name = nameInput.value.trim() || membersData[index].name;
+    membersData[index].posts = parseFloat(inputs[1]?.value) || 0;
+    membersData[index].files = parseFloat(inputs[2]?.value) || 0;
+    membersData[index].suggestions = parseFloat(inputs[3]?.value) || 0;
+    membersData[index].edits = parseFloat(inputs[4]?.value) || 0;
+    
+    // إعادة حساب المجموع
+    membersData[index].total = membersData[index].posts + 
+                               (membersData[index].files * 6) + 
+                               (membersData[index].suggestions * 0.5) + 
+                               (membersData[index].edits * 0.5);
+    
+    renderAllMembers();
+    alert('✅ تم حفظ التغييرات!');
+}
+
+// حذف عضو
+function deleteMember(index) {
+    if (confirm(`هل أنت متأكد من حذف ${membersData[index].name}؟`)) {
+        membersData.splice(index, 1);
+        renderAllMembers();
+        alert('✅ تم حذف العضو!');
+    }
+}
+
+// إضافة عضو جديد
+function addNewMember() {
+    membersData.push({
+        id: Date.now(),
+        name: "عضو جديد",
+        role: "عضو",
+        posts: 0,
+        files: 0,
+        suggestions: 0,
+        edits: 0,
+        total: 0,
+        gender: "female",
+        details: "أضف التفاصيل هنا..."
+    });
+    renderAllMembers();
+    alert('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
+}
