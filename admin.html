@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Beiruti:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Beiruti', sans-serif;
+            background: #030614;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .login-box, .panel {
+            background: rgba(10, 15, 30, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 57, 166, 0.3);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .login-box { max-width: 400px; margin: 100px auto; text-align: center; }
+        .login-box h2 { font-size: 2rem; margin-bottom: 30px; background: linear-gradient(135deg, #fff, #a8b8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .login-box input {
+            width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px;
+            border: 1px solid rgba(0, 57, 166, 0.3);
+            background: rgba(3, 6, 20, 0.6); color: #fff; font-size: 1.1rem;
+            font-family: 'Beiruti', sans-serif;
+        }
+        .login-box input:focus { outline: none; border-color: #0039a6; }
+        .btn {
+            padding: 15px; border: none; border-radius: 15px; font-size: 1.2rem;
+            font-weight: 700; cursor: pointer; font-family: 'Beiruti', sans-serif;
+            background: linear-gradient(135deg, #0039a6, #d9042b); color: #fff;
+            transition: all 0.3s ease; width: 100%;
+        }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 57, 166, 0.4); }
+        .error { color: #d9042b; margin-top: 15px; display: none; }
+        .hidden { display: none !important; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+        .header h2 { font-size: 2rem; background: linear-gradient(135deg, #fff, #a8b8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logout-btn {
+            padding: 10px 30px; border: 1px solid #d9042b; border-radius: 15px;
+            background: transparent; color: #fff; cursor: pointer;
+            font-family: 'Beiruti', sans-serif; transition: all 0.3s ease;
+        }
+        .logout-btn:hover { background: #d9042b; }
+        .member-card-edit {
+            background: rgba(3, 6, 20, 0.4);
+            border: 1px solid rgba(0, 57, 166, 0.2);
+            border-radius: 20px; padding: 20px; margin-bottom: 20px;
+        }
+        .member-card-edit:hover { border-color: #0039a6; }
+        .member-header {
+            display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap;
+        }
+        .member-header input[type="text"] {
+            background: transparent; border: none; border-bottom: 2px solid rgba(0, 57, 166, 0.3);
+            color: #fff; font-size: 1.3rem; font-weight: 700;
+            font-family: 'Beiruti', sans-serif; padding: 5px 10px; flex: 1; min-width: 150px;
+        }
+        .member-header input:focus { outline: none; border-color: #0039a6; }
+        .fields {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px;
+        }
+        .fields label {
+            display: flex; flex-direction: column; gap: 5px; font-size: 0.9rem; color: rgba(255,255,255,0.7);
+        }
+        .fields input, .fields select {
+            padding: 8px 12px; border-radius: 10px;
+            border: 1px solid rgba(0, 57, 166, 0.3);
+            background: rgba(3, 6, 20, 0.6); color: #fff; font-size: 1rem;
+            font-family: 'Beiruti', sans-serif; width: 100%;
+        }
+        .fields input:focus, .fields select:focus { outline: none; border-color: #0039a6; }
+        .fields textarea {
+            padding: 8px 12px; border-radius: 10px;
+            border: 1px solid rgba(0, 57, 166, 0.3);
+            background: rgba(3, 6, 20, 0.6); color: #fff; font-size: 1rem;
+            font-family: 'Beiruti', sans-serif; width: 100%; min-height: 60px;
+            resize: vertical; grid-column: 1 / -1;
+        }
+        .fields textarea:focus { outline: none; border-color: #0039a6; }
+        .delete-btn {
+            padding: 8px 20px; border: 1px solid #d9042b; border-radius: 10px;
+            background: transparent; color: #d9042b; cursor: pointer;
+            font-family: 'Beiruti', sans-serif; transition: all 0.3s ease;
+        }
+        .delete-btn:hover { background: #d9042b; color: #fff; }
+        .add-btn {
+            padding: 12px 30px; border: 2px dashed #0039a6; border-radius: 15px;
+            background: transparent; color: #fff; cursor: pointer; font-size: 1rem;
+            font-family: 'Beiruti', sans-serif; width: 100%; margin: 20px 0;
+        }
+        .add-btn:hover { background: rgba(0, 57, 166, 0.2); border-color: #d9042b; }
+        .save-btn { margin-top: 30px; padding: 18px; font-size: 1.4rem; }
+        .success { color: #00ff88; text-align: center; margin-top: 15px; display: none; }
+        
+        /* إعدادات الصلاحية */
+        .settings-box {
+            background: rgba(3, 6, 20, 0.4);
+            border: 2px solid #0039a6;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .settings-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: end;
+        }
+        .settings-fields label {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .settings-fields input {
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 57, 166, 0.3);
+            background: rgba(3, 6, 20, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Beiruti', sans-serif;
+        }
+        .settings-fields input:focus {
+            outline: none;
+            border-color: #0039a6;
+        }
+        .save-settings-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Beiruti', sans-serif;
+            background: linear-gradient(135deg, #0039a6, #00ff88);
+            color: #fff;
+            transition: all 0.3s ease;
+            height: 45px;
+        }
+        .save-settings-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+        @media (max-width: 768px) {
+            .login-box { margin: 50px auto; padding: 30px; }
+            .fields { grid-template-columns: 1fr 1fr; }
+            .settings-fields { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .fields { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- صفحة الدخول -->
+        <div id="loginPage" class="login-box">
+            <h2>🔐 لوحة التحكم</h2>
+            <input type="text" id="loginUser" placeholder="اسم المستخدم">
+            <input type="password" id="loginPass" placeholder="كلمة المرور">
+            <button class="btn" onclick="login()">دخول</button>
+            <div id="loginError" class="error">❌ اسم المستخدم أو كلمة المرور غير صحيحة</div>
+        </div>
+
+        <!-- لوحة التحكم -->
+        <div id="adminPanel" class="panel hidden">
+            <div class="header">
+                <h2>✏️ تعديل البيانات</h2>
+                <button class="logout-btn" onclick="logout()">🚪 خروج</button>
+            </div>
+            
+            <!-- إعدادات الصلاحية -->
+            <div id="adminSettings"></div>
+            
+            <!-- بيانات الأعضاء -->
+            <div id="editContainer"></div>
+            
+            <button class="add-btn" onclick="addMember()">➕ إضافة عضو جديد</button>
+            <button class="btn save-btn" onclick="saveData()">💾 حفظ التغييرات</button>
+            <div id="saveSuccess" class="success">✅ تم حفظ البيانات بنجاح!</div>
+        </div>
+    </div>
+
+    <script src="members-data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
