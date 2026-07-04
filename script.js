@@ -29,7 +29,7 @@ function renderAllMembers() {
         `).join('');
     }
     
-    // كل الأعضاء
+    // كل الأعضاء مع حقول التعديل
     grid.innerHTML = membersData.map((m, index) => `
         <div class="member-card glass-card" data-index="${index}">
             <div class="avatar-container">
@@ -47,6 +47,8 @@ function renderAllMembers() {
                 <div class="point-item total"><span>المجموع</span><span class="total-value blue-total">${m.total}</span></div>
             </div>
             <button class="details-btn" onclick="openPopup('${m.name}')">عرض التفاصيل</button>
+            
+            <!-- ===== حقول التعديل (تظهر فقط في وضع التعديل) ===== -->
             <div class="edit-controls">
                 <input type="text" class="edit-name-input" value="${m.name}" placeholder="الاسم">
                 <input type="number" value="${m.posts}" placeholder="بوستات">
@@ -184,6 +186,8 @@ function disableAdminMode() {
     renderAllMembers();
     alert('✅ تم الخروج من وضع التعديل');
 }
+
+// ===== دوال التعديل =====
 
 // حفظ تعديلات العضو
 function saveMemberEdit(index) {
