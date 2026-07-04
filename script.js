@@ -64,8 +64,8 @@ function renderAllMembers() {
                 <textarea class="edit-details-input" placeholder="التفاصيل...">${m.details}</textarea>
                 
                 <div class="edit-btn-group">
-                    <button class="save-edit-btn" onclick="saveMemberData(${index})">💾 حفظ</button>
-                    <button class="delete-member-btn" onclick="deleteMember(${index})">🗑️ حذف</button>
+                    <button class="save-edit-btn" onclick="saveMemberData(${index})"> حفظ</button>
+                    <button class="delete-member-btn" onclick="deleteMember(${index})"> حذف</button>
                 </div>
             </div>
         </div>
