@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -12,17 +11,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- شاشة التحميل -->
     <div class="loader-wrapper">
         <img src="assets/lod1.png" alt="Loading..." class="loader-image">
     </div>
 
-    <!-- صورة الخلفية -->
     <div class="large-bg-image">
         <img src="assets/data.svg" alt="Background" class="bg-image">
     </div>
 
-    <!-- العناصر المضيئة -->
     <div class="floating-elements">
         <div class="element"></div>
         <div class="element"></div>
@@ -31,16 +27,14 @@
         <div class="element"></div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
     <div class="content">
-        <!-- الهيدر -->
         <header class="glass-header">
             <div class="logo-container">
                 <img src="assets/log1.png" alt="شعار النادي" class="logo logo-large">
             </div>
         </header>
 
-        <!-- ===== شريط تسجيل الدخول (ثلاث شرطات فقط) ===== -->
+        <!-- ===== شريط تسجيل الدخول (ثلاث شرطات) ===== -->
         <div class="admin-bar" onclick="toggleAdminPopup()">
             <div class="menu-toggle">
                 <span></span>
@@ -49,7 +43,7 @@
             </div>
         </div>
 
-        <!-- ===== نافذة تسجيل الدخول المنبثقة ===== -->
+        <!-- ===== نافذة تسجيل الدخول ===== -->
         <div id="adminPopup" class="admin-popup">
             <div class="admin-popup-content">
                 <span class="close-popup-btn" onclick="event.stopPropagation(); closeAdminPopup();">&times;</span>
@@ -66,50 +60,29 @@
             🚪 الخروج من وضع التعديل
         </button>
 
-        <!-- ===== العنوان الرئيسي ===== -->
         <section class="hero-section">
             <h1 class="main-title">نقاط فريق التصميم</h1>
             <p class="subtitle">تعرض هذه الصفحة نقاط أعضاء فريق التصميم استنادًا إلى المهام والتصاميم التي تم إنجازها، ويتم تحديثها بشكل مستمر</p>
         </section>
 
-        <!-- ===== نظام النقاط ===== -->
         <section class="main-card glass-card" id="mainCard">
             <h2 class="card-title">نظام النقاط</h2>
             <div class="points-items">
-                <div class="item">
-                    <span class="item-name">بوست</span>
-                    <span class="item-value blue-value">1</span>
-                </div>
-                <div class="item">
-                    <span class="item-name">ملف بوربوينت او كتيب</span>
-                    <span class="item-value blue-value">6</span>
-                </div>
-                <div class="item">
-                    <span class="item-name">اقتراح</span>
-                    <span class="item-value blue-value">0.5</span>
-                </div>
-                <div class="item">
-                    <span class="item-name">تعديل</span>
-                    <span class="item-value blue-value">0.5</span>
-                </div>
+                <div class="item"><span class="item-name">بوست</span><span class="item-value blue-value">1</span></div>
+                <div class="item"><span class="item-name">ملف بوربوينت او كتيب</span><span class="item-value blue-value">6</span></div>
+                <div class="item"><span class="item-name">اقتراح</span><span class="item-value blue-value">0.5</span></div>
+                <div class="item"><span class="item-name">تعديل</span><span class="item-value blue-value">0.5</span></div>
             </div>
         </section>
 
-        <!-- ===== أفضل 3 أعضاء ===== -->
         <section class="top-three-section">
             <h2 class="top-three-title">أفضل 3 أعضاء</h2>
-            <div class="top-three-items" id="topThreeContainer">
-                <!-- يتم تعبئتها بواسطة JavaScript -->
-            </div>
+            <div class="top-three-items" id="topThreeContainer"></div>
         </section>
 
-        <!-- ===== أعضاء الفريق ===== -->
         <h2 class="team-title">أعضاء فريق التصميم</h2>
-        <section class="team-grid" id="teamGrid">
-            <!-- يتم تعبئتها بواسطة JavaScript -->
-        </section>
+        <section class="team-grid" id="teamGrid"></section>
 
-        <!-- ===== الفوتر ===== -->
         <footer class="glass-footer">
             <div class="footer-content">
                 <div class="copyright">©️ 2026 جميع الحقوق محفوظة</div>
@@ -121,7 +94,6 @@
         </footer>
     </div>
 
-    <!-- ===== نافذة التفاصيل المنبثقة ===== -->
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close-popup" onclick="closePopup()">&times;</span>
@@ -130,7 +102,6 @@
         </div>
     </div>
 
-    <!-- ===== الملفات ===== -->
     <script src="members-data.js"></script>
     <script src="script.js"></script>
 </body>
