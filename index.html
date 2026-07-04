@@ -29,26 +29,23 @@
     </div>
 
     <div class="content">
+        <!-- ===== الهيدر مع أيقونة تسجيل الدخول ===== -->
         <header class="glass-header">
-            <div class="logo-container">
-                <img src="assets/log1.png" alt="شعار النادي" class="logo logo-large">
+            <div class="header-content">
+                <div class="admin-bar" onclick="toggleAdminPopup()">
+                    <i class="fas fa-user-circle admin-icon"></i>
+                </div>
+                <div class="logo-container">
+                    <img src="assets/log1.png" alt="شعار النادي" class="logo logo-large">
+                </div>
             </div>
         </header>
-
-        <!-- ===== شريط تسجيل الدخول (ثلاث شرطات ثابتة) ===== -->
-        <div class="admin-bar" onclick="toggleAdminPopup()">
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
 
         <!-- ===== نافذة تسجيل الدخول ===== -->
         <div id="adminPopup" class="admin-popup">
             <div class="admin-popup-content">
                 <span class="close-popup-btn" onclick="event.stopPropagation(); closeAdminPopup();">&times;</span>
-                <h3>تسجيل دخول الأدمن</h3>
+                <h3>تسجيل دخول</h3>
                 <input type="text" id="popupUser" placeholder="اسم المستخدم" onclick="event.stopPropagation();">
                 <input type="password" id="popupPass" placeholder="كلمة المرور" onclick="event.stopPropagation();">
                 <button onclick="event.stopPropagation(); adminLogin();">دخول</button>
@@ -56,9 +53,9 @@
             </div>
         </div>
 
-        <!-- ===== زر الخروج من وضع التعديل ===== -->
+        <!-- ===== زر الخروج ===== -->
         <button id="adminModeBtn" class="admin-mode-btn" onclick="disableAdminMode()">
-            🚪 الخروج من وضع التعديل
+            خروج
         </button>
 
         <section class="hero-section">
@@ -84,13 +81,11 @@
         <h2 class="team-title">أعضاء فريق التصميم</h2>
         <section class="team-grid" id="teamGrid"></section>
 
+        <!-- ===== الفوتر ===== -->
         <footer class="glass-footer">
             <div class="footer-content">
                 <div class="copyright">©️ 2026 جميع الحقوق محفوظة</div>
-                <div class="supervisor">الإشراف والمتابعة قائد فريق التصميم: فرح عبدالله الشمري</div>
-                <a href="https://wa.me/966556418784" target="_blank" class="whatsapp-circle">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
+                <div class="supervisor">فريق التصميم - نادي الأمن السيبراني</div>
             </div>
         </footer>
     </div>
