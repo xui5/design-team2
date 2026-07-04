@@ -406,7 +406,9 @@ body::after {
     display: flex;
 }
 
-.edit-controls input {
+.edit-controls input,
+.edit-controls select,
+.edit-controls textarea {
     padding: 8px 12px;
     border-radius: 10px;
     border: 1px solid rgba(0, 57, 166, 0.3);
@@ -414,17 +416,34 @@ body::after {
     color: #fff;
     font-size: 0.9rem;
     font-family: 'Beiruti', sans-serif;
-    width: 70px;
-    text-align: center;
 }
 
-.edit-controls input:focus {
+.edit-controls input:focus,
+.edit-controls select:focus,
+.edit-controls textarea:focus {
     outline: none;
     border-color: #0039a6;
 }
 
+.edit-controls input {
+    width: 70px;
+    text-align: center;
+}
+
 .edit-controls .edit-name-input {
     width: 150px;
+}
+
+.edit-role-select {
+    width: 130px;
+    min-width: 120px;
+}
+
+.edit-details-input {
+    width: 100%;
+    min-height: 60px;
+    resize: vertical;
+    grid-column: 1 / -1;
 }
 
 .edit-btn-group {
@@ -461,6 +480,36 @@ body::after {
 
 .edit-btn-group .delete-member-btn:hover {
     background: #ff0033;
+}
+
+/* ===== أزرار الترتيب ===== */
+.move-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    width: 100%;
+}
+
+.move-btn {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, #0039a6, #d9042b);
+    color: #fff;
+    transition: all 0.3s ease;
+    font-family: 'Beiruti', sans-serif;
+}
+
+.move-btn:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 57, 166, 0.4);
+}
+
+.move-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 .admin-mode-btn {
@@ -1091,6 +1140,16 @@ body::after {
         width: 18px;
         height: 2px;
     }
+
+    .edit-controls input {
+        width: 60px;
+    }
+    .edit-controls .edit-name-input {
+        width: 120px;
+    }
+    .edit-role-select {
+        width: 100px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1117,5 +1176,12 @@ body::after {
 
     .top-item {
         padding: 10px 15px;
+    }
+
+    .edit-controls input {
+        width: 50px;
+    }
+    .edit-controls .edit-name-input {
+        width: 100px;
     }
 }
