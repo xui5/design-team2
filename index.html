@@ -12,14 +12,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- شاشة التحميل -->
     <div class="loader-wrapper">
         <img src="assets/lod1.png" alt="Loading..." class="loader-image">
     </div>
 
+    <!-- صورة الخلفية -->
     <div class="large-bg-image">
         <img src="assets/data.svg" alt="Background" class="bg-image">
     </div>
 
+    <!-- العناصر المضيئة -->
     <div class="floating-elements">
         <div class="element"></div>
         <div class="element"></div>
@@ -28,6 +31,7 @@
         <div class="element"></div>
     </div>
 
+    <!-- المحتوى الرئيسي -->
     <div class="content">
         <!-- الهيدر -->
         <header class="glass-header">
@@ -36,37 +40,40 @@
             </div>
         </header>
 
-        <!-- زر القائمة (الثلاث شرطات) -->
-        <div class="menu-toggle" onclick="toggleAdminPopup()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <!-- ===== شريط تسجيل الدخول (المربع الأخضر) ===== -->
+        <div class="admin-bar" onclick="toggleAdminPopup()">
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="admin-login-label">تسجيل دخول</span>
         </div>
 
-        <!-- نافذة تسجيل الدخول المنبثقة -->
+        <!-- ===== نافذة تسجيل الدخول المنبثقة ===== -->
         <div id="adminPopup" class="admin-popup">
             <div class="admin-popup-content">
-                <span class="close-popup-btn" onclick="closeAdminPopup()">&times;</span>
+                <span class="close-popup-btn" onclick="event.stopPropagation(); closeAdminPopup();">&times;</span>
                 <h3>🔐 تسجيل دخول الأدمن</h3>
-                <input type="text" id="popupUser" placeholder="اسم المستخدم">
-                <input type="password" id="popupPass" placeholder="كلمة المرور">
-                <button onclick="adminLogin()">دخول</button>
+                <input type="text" id="popupUser" placeholder="اسم المستخدم" onclick="event.stopPropagation();">
+                <input type="password" id="popupPass" placeholder="كلمة المرور" onclick="event.stopPropagation();">
+                <button onclick="event.stopPropagation(); adminLogin();">دخول</button>
                 <div id="popupError" class="popup-error"></div>
             </div>
         </div>
 
-        <!-- زر الخروج من وضع الأدمن -->
+        <!-- ===== زر الخروج من وضع التعديل ===== -->
         <button id="adminModeBtn" class="admin-mode-btn" onclick="disableAdminMode()">
             🚪 الخروج من وضع التعديل
         </button>
 
-        <!-- العنوان الرئيسي -->
+        <!-- ===== العنوان الرئيسي ===== -->
         <section class="hero-section">
             <h1 class="main-title">نقاط فريق التصميم</h1>
             <p class="subtitle">تعرض هذه الصفحة نقاط أعضاء فريق التصميم استنادًا إلى المهام والتصاميم التي تم إنجازها، ويتم تحديثها بشكل مستمر</p>
         </section>
 
-        <!-- المربع الرئيسي -->
+        <!-- ===== نظام النقاط ===== -->
         <section class="main-card glass-card" id="mainCard">
             <h2 class="card-title">نظام النقاط</h2>
             <div class="points-items">
@@ -89,7 +96,7 @@
             </div>
         </section>
 
-        <!-- أفضل 3 أعضاء -->
+        <!-- ===== أفضل 3 أعضاء ===== -->
         <section class="top-three-section">
             <h2 class="top-three-title">أفضل 3 أعضاء</h2>
             <div class="top-three-items" id="topThreeContainer">
@@ -97,15 +104,13 @@
             </div>
         </section>
 
-        <!-- عنوان الفريق -->
+        <!-- ===== أعضاء الفريق ===== -->
         <h2 class="team-title">أعضاء فريق التصميم</h2>
-
-        <!-- بطاقات الأعضاء -->
         <section class="team-grid" id="teamGrid">
             <!-- يتم تعبئتها بواسطة JavaScript -->
         </section>
 
-        <!-- الفوتر -->
+        <!-- ===== الفوتر ===== -->
         <footer class="glass-footer">
             <div class="footer-content">
                 <div class="copyright">©️ 2026 جميع الحقوق محفوظة</div>
@@ -117,7 +122,7 @@
         </footer>
     </div>
 
-    <!-- نافذة التفاصيل المنبثقة -->
+    <!-- ===== نافذة التفاصيل المنبثقة ===== -->
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close-popup" onclick="closePopup()">&times;</span>
@@ -126,7 +131,7 @@
         </div>
     </div>
 
-    <!-- الملفات -->
+    <!-- ===== الملفات ===== -->
     <script src="members-data.js"></script>
     <script src="script.js"></script>
 </body>
