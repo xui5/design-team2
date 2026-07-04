@@ -30,10 +30,18 @@
     </div>
 
     <div class="content">
-        <!-- ===== أيقونة تسجيل الدخول (ثابتة في الزاوية اليسرى) ===== -->
-        <div class="admin-bar" onclick="toggleAdminPopup()">
-            <i class="fas fa-user-circle admin-icon"></i>
-        </div>
+        <!-- ===== الهيدر مع أيقونة تسجيل الدخول ===== -->
+        <header class="glass-header">
+            <div class="header-content">
+                <!-- أيقونة تسجيل الدخول (في الزاوية اليسرى من الهيدر) -->
+                <div class="admin-bar" onclick="toggleAdminPopup()">
+                    <i class="fas fa-user-circle admin-icon"></i>
+                </div>
+                <div class="logo-container">
+                    <img src="assets/log1.png" alt="شعار النادي" class="logo logo-large">
+                </div>
+            </div>
+        </header>
 
         <!-- ===== نافذة تسجيل الدخول ===== -->
         <div id="adminPopup" class="admin-popup">
@@ -51,13 +59,6 @@
         <button id="adminModeBtn" class="admin-mode-btn" onclick="disableAdminMode()">
             خروج
         </button>
-
-        <!-- ===== الهيدر ===== -->
-        <header class="glass-header">
-            <div class="logo-container">
-                <img src="assets/log1.png" alt="شعار النادي" class="logo logo-large">
-            </div>
-        </header>
 
         <section class="hero-section">
             <h1 class="main-title">نقاط فريق التصميم</h1>
