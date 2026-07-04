@@ -1,5 +1,4 @@
 
-
 @import url('https://fonts.googleapis.com/css2?family=Beiruti:wght@300;400;500;600;700;800&display=swap');
 
 * {
@@ -240,7 +239,7 @@ body::after {
     transform: scale(1.05) rotate(2deg);
 }
 
-/* ===== شريط تسجيل الدخول (المربع الأخضر) ===== */
+/* ===== شريط تسجيل الدخول (ثلاث شرطات فقط) ===== */
 .admin-bar {
     position: fixed;
     top: 20px;
@@ -248,10 +247,9 @@ body::after {
     z-index: 999;
     display: flex;
     align-items: center;
-    gap: 12px;
     background: rgba(3, 6, 20, 0.7);
     backdrop-filter: blur(15px);
-    padding: 10px 18px;
+    padding: 10px 14px;
     border-radius: 50px;
     border: 1px solid rgba(0, 57, 166, 0.3);
     cursor: pointer;
@@ -282,20 +280,6 @@ body::after {
 
 .menu-toggle:hover span {
     width: 28px;
-}
-
-.admin-login-label {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.95rem;
-    font-weight: 500;
-    font-family: 'Beiruti', sans-serif;
-    transition: all 0.3s ease;
-    padding-right: 8px;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.admin-bar:hover .admin-login-label {
-    color: #fff;
 }
 
 /* ===== نافذة تسجيل الدخول المنبثقة ===== */
@@ -332,10 +316,9 @@ body::after {
 .admin-popup-content h3 {
     font-size: 1.8rem;
     margin-bottom: 25px;
-    background: linear-gradient(135deg, #fff, #a8b8ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #fff;
+    font-family: 'Beiruti', sans-serif;
+    font-weight: 700;
 }
 
 .admin-popup-content input {
@@ -1102,10 +1085,7 @@ body::after {
     .admin-bar {
         top: 10px;
         left: 10px;
-        padding: 8px 14px;
-    }
-    .admin-login-label {
-        font-size: 0.8rem;
+        padding: 8px 12px;
     }
     .menu-toggle span {
         width: 18px;
