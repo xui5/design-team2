@@ -40,21 +40,20 @@
             </div>
         </header>
 
-        <!-- ===== شريط تسجيل الدخول (المربع الأخضر) ===== -->
+        <!-- ===== شريط تسجيل الدخول (ثلاث شرطات فقط) ===== -->
         <div class="admin-bar" onclick="toggleAdminPopup()">
             <div class="menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <span class="admin-login-label">تسجيل دخول</span>
         </div>
 
         <!-- ===== نافذة تسجيل الدخول المنبثقة ===== -->
         <div id="adminPopup" class="admin-popup">
             <div class="admin-popup-content">
                 <span class="close-popup-btn" onclick="event.stopPropagation(); closeAdminPopup();">&times;</span>
-                <h3>🔐 تسجيل دخول الأدمن</h3>
+                <h3>تسجيل دخول الأدمن</h3>
                 <input type="text" id="popupUser" placeholder="اسم المستخدم" onclick="event.stopPropagation();">
                 <input type="password" id="popupPass" placeholder="كلمة المرور" onclick="event.stopPropagation();">
                 <button onclick="event.stopPropagation(); adminLogin();">دخول</button>
