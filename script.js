@@ -1,5 +1,3 @@
-
-// شاشة التحميل
 window.addEventListener('load', function() {
     setTimeout(() => {
         const loader = document.querySelector('.loader-wrapper');
@@ -8,7 +6,6 @@ window.addEventListener('load', function() {
     renderAllMembers();
 });
 
-// ===== عرض الأعضاء =====
 function renderAllMembers() {
     const grid = document.getElementById('teamGrid');
     const topContainer = document.getElementById('topThreeContainer');
@@ -16,7 +13,6 @@ function renderAllMembers() {
     
     const sorted = [...membersData].sort((a, b) => b.total - a.total);
     
-    // أفضل 3
     if (topContainer) {
         const top3 = sorted.slice(0, 3);
         const medals = ['🥇', '🥈', '🥉'];
@@ -29,7 +25,6 @@ function renderAllMembers() {
         `).join('');
     }
     
-    // كل الأعضاء مع حقول التعديل الكاملة
     grid.innerHTML = membersData.map((m, index) => `
         <div class="member-card glass-card" data-index="${index}">
             <div class="avatar-container">
@@ -48,7 +43,6 @@ function renderAllMembers() {
             </div>
             <button class="details-btn" onclick="openPopup('${m.name}')">عرض التفاصيل</button>
             
-            <!-- ===== حقول التعديل الكاملة ===== -->
             <div class="edit-controls">
                 <input type="text" class="edit-name-input" value="${m.name}" placeholder="الاسم">
                 <input type="number" value="${m.posts}" placeholder="بوستات">
@@ -56,31 +50,27 @@ function renderAllMembers() {
                 <input type="number" value="${m.suggestions}" placeholder="اقتراحات">
                 <input type="number" value="${m.edits}" placeholder="تعديلات">
                 
-                <!-- منصب -->
-                <select class="edit-role-select" data-index="${index}">
+                <select class="edit-role-select">
                     <option value="قائد الفريق" ${m.role === 'قائد الفريق' ? 'selected' : ''}>قائد الفريق</option>
                     <option value="نائب قائد الفريق" ${m.role === 'نائب قائد الفريق' ? 'selected' : ''}>نائب قائد الفريق</option>
                     <option value="عضو" ${m.role === 'عضو' ? 'selected' : ''}>عضو</option>
                 </select>
                 
-                <!-- تفاصيل -->
                 <textarea class="edit-details-input" placeholder="التفاصيل...">${m.details}</textarea>
                 
                 <div class="edit-btn-group">
-                    <button class="save-edit-btn" onclick="saveFullEdit(${index})">💾 حفظ الكل</button>
+                    <button class="save-edit-btn" onclick="saveMemberData(${index})">💾 حفظ</button>
                     <button class="delete-member-btn" onclick="deleteMember(${index})">🗑️ حذف</button>
                 </div>
                 
-                <!-- أزرار الترتيب -->
                 <div class="move-buttons">
-                    <button class="move-btn" onclick="moveMemberUp(${index})" ${index === 0 ? 'disabled' : ''}>⬆️</button>
-                    <button class="move-btn" onclick="moveMemberDown(${index})" ${index === membersData.length - 1 ? 'disabled' : ''}>⬇️</button>
+                    <button class="move-btn" onclick="moveUp(${index})" ${index === 0 ? 'disabled' : ''}>⬆️</button>
+                    <button class="move-btn" onclick="moveDown(${index})" ${index === membersData.length - 1 ? 'disabled' : ''}>⬇️</button>
                 </div>
             </div>
         </div>
     `).join('');
     
-    // زر إضافة عضو جديد
     const existingBtn = document.querySelector('.add-member-btn');
     if (!existingBtn) {
         const addBtn = document.createElement('button');
@@ -91,7 +81,7 @@ function renderAllMembers() {
     }
 }
 
-// ===== النافذة المنبثقة للتفاصيل =====
+// ===== النافذة المنبثقة =====
 function openPopup(name) {
     const popup = document.getElementById('popup');
     const title = document.getElementById('popup-title');
@@ -111,7 +101,6 @@ window.addEventListener('click', function(e) {
     if (e.target === popup) closePopup();
 });
 
-// ===== تأثيرات التمرير =====
 window.addEventListener('scroll', function() {
     document.querySelectorAll('.member-card').forEach(card => {
         const rect = card.getBoundingClientRect();
@@ -122,7 +111,6 @@ window.addEventListener('scroll', function() {
     });
 });
 
-// ===== تأثيرات المربع الرئيسي =====
 const mainCard = document.getElementById('mainCard');
 if (mainCard) {
     mainCard.addEventListener('mousedown', function() {
@@ -138,7 +126,6 @@ if (mainCard) {
     });
 }
 
-// ===== حركة العناصر المضيئة =====
 document.addEventListener('mousemove', function(e) {
     const elements = document.querySelectorAll('.element');
     const mouseX = e.clientX / window.innerWidth;
@@ -149,24 +136,17 @@ document.addEventListener('mousemove', function(e) {
     });
 });
 
-// =============================================
-// ===== إدارة الأدمن (تسجيل الدخول والتعديل) =====
-// =============================================
-
+// ===== إدارة الأدمن =====
 let isAdminMode = false;
 
-// فتح نافذة تسجيل الدخول
 function toggleAdminPopup() {
-    const popup = document.getElementById('adminPopup');
-    popup.classList.toggle('show');
+    document.getElementById('adminPopup').classList.toggle('show');
 }
 
-// إغلاق نافذة تسجيل الدخول
 function closeAdminPopup() {
     document.getElementById('adminPopup').classList.remove('show');
 }
 
-// تسجيل الدخول
 function adminLogin() {
     const user = document.getElementById('popupUser').value.trim();
     const pass = document.getElementById('popupPass').value.trim();
@@ -182,7 +162,6 @@ function adminLogin() {
     }
 }
 
-// تفعيل وضع التعديل
 function enableAdminMode() {
     isAdminMode = true;
     document.body.classList.add('edit-mode');
@@ -193,7 +172,6 @@ function enableAdminMode() {
     alert('✅ تم تفعيل وضع التعديل!');
 }
 
-// الخروج من وضع التعديل
 function disableAdminMode() {
     isAdminMode = false;
     document.body.classList.remove('edit-mode');
@@ -204,12 +182,8 @@ function disableAdminMode() {
     alert('✅ تم الخروج من وضع التعديل');
 }
 
-// =============================================
-// ===== دوال التعديل الكاملة =====
-// =============================================
-
-// حفظ التعديلات الكاملة
-function saveFullEdit(index) {
+// ===== دوال التعديل اليدوي =====
+function saveMemberData(index) {
     const card = document.querySelectorAll('.member-card')[index];
     if (!card) return;
     
@@ -226,7 +200,6 @@ function saveFullEdit(index) {
     membersData[index].edits = parseFloat(inputs[4]?.value) || 0;
     membersData[index].details = detailsInput ? detailsInput.value : membersData[index].details;
     
-    // إعادة حساب المجموع
     membersData[index].total = membersData[index].posts + 
                                (membersData[index].files * 6) + 
                                (membersData[index].suggestions * 0.5) + 
@@ -236,7 +209,6 @@ function saveFullEdit(index) {
     alert('✅ تم حفظ التغييرات!');
 }
 
-// حذف عضو
 function deleteMember(index) {
     if (confirm(`هل أنت متأكد من حذف ${membersData[index].name}؟`)) {
         membersData.splice(index, 1);
@@ -245,7 +217,6 @@ function deleteMember(index) {
     }
 }
 
-// إضافة عضو جديد
 function addNewMember() {
     membersData.push({
         id: Date.now(),
@@ -263,8 +234,8 @@ function addNewMember() {
     alert('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
 }
 
-// ===== تغيير الترتيب =====
-function moveMemberUp(index) {
+// ===== أزرار الترتيب =====
+function moveUp(index) {
     if (index === 0) return;
     const temp = membersData[index];
     membersData[index] = membersData[index - 1];
@@ -273,7 +244,7 @@ function moveMemberUp(index) {
     alert('✅ تم تغيير الترتيب!');
 }
 
-function moveMemberDown(index) {
+function moveDown(index) {
     if (index === membersData.length - 1) return;
     const temp = membersData[index];
     membersData[index] = membersData[index + 1];
