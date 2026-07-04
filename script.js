@@ -173,7 +173,7 @@ function enableAdminMode() {
     const addBtn = document.querySelector('.add-member-btn');
     if (addBtn) addBtn.style.display = 'block';
     renderAllMembers();
-    showCustomPopup('✅ تم تفعيل وضع التعديل');
+    showCustomPopup('تم تفعيل وضع التعديل');
 }
 
 function disableAdminMode() {
@@ -183,7 +183,7 @@ function disableAdminMode() {
     const addBtn = document.querySelector('.add-member-btn');
     if (addBtn) addBtn.style.display = 'none';
     renderAllMembers();
-    showCustomPopup('✅ تم الخروج من وضع التعديل');
+    showCustomPopup('تم الخروج من وضع التعديل');
 }
 
 // =============================================
@@ -213,14 +213,14 @@ function saveMemberData(index) {
                                (membersData[index].edits * 0.5);
     
     renderAllMembers();
-    showCustomPopup('✅ تم حفظ التغييرات بنجاح!');
+    showCustomPopup('تم حفظ التغييرات بنجاح');
 }
 
 function deleteMember(index) {
     if (confirm(`هل أنت متأكد من حذف ${membersData[index].name}؟`)) {
         membersData.splice(index, 1);
         renderAllMembers();
-        showCustomPopup('✅ تم حذف العضو!');
+        showCustomPopup('تم حذف العضو');
     }
 }
 
@@ -238,14 +238,14 @@ function addNewMember() {
         details: "أضف التفاصيل هنا..."
     });
     renderAllMembers();
-    showCustomPopup('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
+    showCustomPopup('تم إضافة عضو جديد');
 }
 
 // ===== تغيير المنصب فوراً =====
 function updateRole(index, newRole) {
     membersData[index].role = newRole;
     renderAllMembers();
-    showCustomPopup('✅ تم تغيير المنصب إلى ' + newRole);
+    showCustomPopup('تم تغيير المنصب إلى ' + newRole);
 }
 
 // ===== نافذة التعديل المنبثقة (بدل التنبيهات) =====
@@ -257,7 +257,9 @@ function showCustomPopup(message) {
     popup.className = 'custom-popup';
     popup.innerHTML = `
         <div class="custom-popup-content">
-            <div class="custom-popup-icon">✅</div>
+            <div class="custom-popup-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
             <p>${message}</p>
         </div>
     `;
