@@ -12,26 +12,21 @@ function renderAllMembers() {
     const topContainer = document.getElementById('topThreeContainer');
     if (!grid) return;
     
-    // أفضل 3 (مع أزرار ترتيب)
+    // ===== أفضل 3 (ترتيب حسب النقاط) =====
     if (topContainer) {
-        const top3 = membersData.slice(0, 3);
+        const sorted = [...membersData].sort((a, b) => b.total - a.total);
+        const top3 = sorted.slice(0, 3);
         const medals = ['🥇', '🥈', '🥉'];
         topContainer.innerHTML = top3.map((m, i) => `
             <div class="top-item">
                 <span class="top-rank">${medals[i]}</span>
                 <span class="top-name">${m.name}</span>
                 <span class="top-points">${m.total} نقطة</span>
-                ${isAdminMode ? `
-                <div class="top-move-buttons">
-                    <button class="move-btn" onclick="moveTopUp(${i})" ${i === 0 ? 'disabled' : ''}>⬆️</button>
-                    <button class="move-btn" onclick="moveTopDown(${i})" ${i === 2 ? 'disabled' : ''}>⬇️</button>
-                </div>
-                ` : ''}
             </div>
         `).join('');
     }
     
-    // كل الأعضاء مع حقول التعديل
+    // ===== كل الأعضاء =====
     grid.innerHTML = membersData.map((m, index) => `
         <div class="member-card glass-card" data-index="${index}">
             <div class="avatar-container">
@@ -50,6 +45,7 @@ function renderAllMembers() {
             </div>
             <button class="details-btn" onclick="openPopup('${m.name}')">عرض التفاصيل</button>
             
+            <!-- ===== حقول التعديل ===== -->
             <div class="edit-controls">
                 <input type="text" class="edit-name-input" value="${m.name}" placeholder="الاسم">
                 <input type="number" value="${m.posts}" placeholder="بوستات">
@@ -70,6 +66,7 @@ function renderAllMembers() {
                     <button class="delete-member-btn" onclick="deleteMember(${index})">🗑️ حذف</button>
                 </div>
                 
+                <!-- ===== أزرار ترتيب الأعضاء ===== -->
                 <div class="move-buttons">
                     <button class="move-btn" onclick="moveUp(${index})" ${index === 0 ? 'disabled' : ''}>⬆️</button>
                     <button class="move-btn" onclick="moveDown(${index})" ${index === membersData.length - 1 ? 'disabled' : ''}>⬇️</button>
@@ -78,7 +75,7 @@ function renderAllMembers() {
         </div>
     `).join('');
     
-    // زر إضافة عضو
+    // ===== زر إضافة عضو =====
     const existingBtn = document.querySelector('.add-member-btn');
     if (!existingBtn) {
         const addBtn = document.createElement('button');
@@ -144,7 +141,10 @@ document.addEventListener('mousemove', function(e) {
     });
 });
 
+// =============================================
 // ===== إدارة الأدمن =====
+// =============================================
+
 let isAdminMode = false;
 
 function toggleAdminPopup() {
@@ -194,7 +194,6 @@ function disableAdminMode() {
 // ===== دوال التعديل =====
 // =============================================
 
-// حفظ بيانات العضو
 function saveMemberData(index) {
     const card = document.querySelectorAll('.member-card')[index];
     if (!card) return;
@@ -212,6 +211,7 @@ function saveMemberData(index) {
     membersData[index].edits = parseFloat(inputs[4]?.value) || 0;
     membersData[index].details = detailsInput ? detailsInput.value : membersData[index].details;
     
+    // حساب المجموع تلقائياً
     membersData[index].total = membersData[index].posts + 
                                (membersData[index].files * 6) + 
                                (membersData[index].suggestions * 0.5) + 
@@ -221,7 +221,6 @@ function saveMemberData(index) {
     alert('✅ تم حفظ التغييرات!');
 }
 
-// حذف عضو
 function deleteMember(index) {
     if (confirm(`هل أنت متأكد من حذف ${membersData[index].name}؟`)) {
         membersData.splice(index, 1);
@@ -230,7 +229,6 @@ function deleteMember(index) {
     }
 }
 
-// إضافة عضو
 function addNewMember() {
     membersData.push({
         id: Date.now(),
@@ -248,7 +246,7 @@ function addNewMember() {
     alert('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
 }
 
-// ===== ترتيب الأعضاء (العاديين) =====
+// ===== ترتيب الأعضاء =====
 function moveUp(index) {
     if (index === 0) return;
     const temp = membersData[index];
@@ -265,31 +263,4 @@ function moveDown(index) {
     membersData[index + 1] = temp;
     renderAllMembers();
     alert('✅ تم تغيير الترتيب!');
-}
-
-// ===== ترتيب أفضل 3 =====
-function moveTopUp(index) {
-    if (index === 0) return;
-    const top3 = membersData.slice(0, 3);
-    const temp = top3[index];
-    top3[index] = top3[index - 1];
-    top3[index - 1] = temp;
-    membersData[0] = top3[0];
-    membersData[1] = top3[1];
-    membersData[2] = top3[2];
-    renderAllMembers();
-    alert('✅ تم تغيير ترتيب أفضل 3!');
-}
-
-function moveTopDown(index) {
-    if (index === 2) return;
-    const top3 = membersData.slice(0, 3);
-    const temp = top3[index];
-    top3[index] = top3[index + 1];
-    top3[index + 1] = temp;
-    membersData[0] = top3[0];
-    membersData[1] = top3[1];
-    membersData[2] = top3[2];
-    renderAllMembers();
-    alert('✅ تم تغيير ترتيب أفضل 3!');
 }
