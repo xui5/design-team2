@@ -156,7 +156,7 @@ function adminLogin() {
     const pass = document.getElementById('popupPass').value.trim();
     const error = document.getElementById('popupError');
     
-    if (user === "cscuoh" && pass === "admin@csc541design") {
+    if (user === "cscuoh" && pass === "admin@csc571") {
         error.style.display = 'none';
         closeAdminPopup();
         enableAdminMode();
