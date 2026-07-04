@@ -29,7 +29,7 @@ function renderAllMembers() {
         `).join('');
     }
     
-    // كل الأعضاء مع حقول التعديل
+    // كل الأعضاء مع حقول التعديل الكاملة
     grid.innerHTML = membersData.map((m, index) => `
         <div class="member-card glass-card" data-index="${index}">
             <div class="avatar-container">
@@ -48,16 +48,33 @@ function renderAllMembers() {
             </div>
             <button class="details-btn" onclick="openPopup('${m.name}')">عرض التفاصيل</button>
             
-            <!-- ===== حقول التعديل (تظهر فقط في وضع التعديل) ===== -->
+            <!-- ===== حقول التعديل الكاملة ===== -->
             <div class="edit-controls">
                 <input type="text" class="edit-name-input" value="${m.name}" placeholder="الاسم">
                 <input type="number" value="${m.posts}" placeholder="بوستات">
                 <input type="number" value="${m.files}" placeholder="ملفات">
                 <input type="number" value="${m.suggestions}" placeholder="اقتراحات">
                 <input type="number" value="${m.edits}" placeholder="تعديلات">
+                
+                <!-- منصب -->
+                <select class="edit-role-select" data-index="${index}">
+                    <option value="قائد الفريق" ${m.role === 'قائد الفريق' ? 'selected' : ''}>قائد الفريق</option>
+                    <option value="نائب قائد الفريق" ${m.role === 'نائب قائد الفريق' ? 'selected' : ''}>نائب قائد الفريق</option>
+                    <option value="عضو" ${m.role === 'عضو' ? 'selected' : ''}>عضو</option>
+                </select>
+                
+                <!-- تفاصيل -->
+                <textarea class="edit-details-input" placeholder="التفاصيل...">${m.details}</textarea>
+                
                 <div class="edit-btn-group">
-                    <button class="save-edit-btn" onclick="saveMemberEdit(${index})">💾 حفظ</button>
+                    <button class="save-edit-btn" onclick="saveFullEdit(${index})">💾 حفظ الكل</button>
                     <button class="delete-member-btn" onclick="deleteMember(${index})">🗑️ حذف</button>
+                </div>
+                
+                <!-- أزرار الترتيب -->
+                <div class="move-buttons">
+                    <button class="move-btn" onclick="moveMemberUp(${index})" ${index === 0 ? 'disabled' : ''}>⬆️</button>
+                    <button class="move-btn" onclick="moveMemberDown(${index})" ${index === membersData.length - 1 ? 'disabled' : ''}>⬇️</button>
                 </div>
             </div>
         </div>
@@ -187,21 +204,27 @@ function disableAdminMode() {
     alert('✅ تم الخروج من وضع التعديل');
 }
 
-// ===== دوال التعديل =====
+// =============================================
+// ===== دوال التعديل الكاملة =====
+// =============================================
 
-// حفظ تعديلات العضو
-function saveMemberEdit(index) {
+// حفظ التعديلات الكاملة
+function saveFullEdit(index) {
     const card = document.querySelectorAll('.member-card')[index];
     if (!card) return;
     
     const inputs = card.querySelectorAll('.edit-controls input');
     const nameInput = card.querySelector('.edit-name-input');
+    const roleSelect = card.querySelector('.edit-role-select');
+    const detailsInput = card.querySelector('.edit-details-input');
     
     membersData[index].name = nameInput.value.trim() || membersData[index].name;
+    membersData[index].role = roleSelect ? roleSelect.value : membersData[index].role;
     membersData[index].posts = parseFloat(inputs[1]?.value) || 0;
     membersData[index].files = parseFloat(inputs[2]?.value) || 0;
     membersData[index].suggestions = parseFloat(inputs[3]?.value) || 0;
     membersData[index].edits = parseFloat(inputs[4]?.value) || 0;
+    membersData[index].details = detailsInput ? detailsInput.value : membersData[index].details;
     
     // إعادة حساب المجموع
     membersData[index].total = membersData[index].posts + 
@@ -238,4 +261,23 @@ function addNewMember() {
     });
     renderAllMembers();
     alert('✅ تم إضافة عضو جديد! قم بتعديل بياناته');
+}
+
+// ===== تغيير الترتيب =====
+function moveMemberUp(index) {
+    if (index === 0) return;
+    const temp = membersData[index];
+    membersData[index] = membersData[index - 1];
+    membersData[index - 1] = temp;
+    renderAllMembers();
+    alert('✅ تم تغيير الترتيب!');
+}
+
+function moveMemberDown(index) {
+    if (index === membersData.length - 1) return;
+    const temp = membersData[index];
+    membersData[index] = membersData[index + 1];
+    membersData[index + 1] = temp;
+    renderAllMembers();
+    alert('✅ تم تغيير الترتيب!');
 }
