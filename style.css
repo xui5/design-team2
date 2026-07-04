@@ -125,7 +125,7 @@ body::after {
 .logo-large { height: 100px; }
 .logo:hover { transform: scale(1.05) rotate(2deg); }
 
-/* ===== شريط الأدمن (ثلاث شرطات) ===== */
+/* ===== شريط الأدمن ===== */
 .admin-bar {
     position: fixed; top: 20px; left: 20px;
     z-index: 999;
@@ -231,8 +231,7 @@ body::after {
     background: rgba(217,4,43,0.3);
     width: 45px; height: 45px;
     border-radius: 50%;
-    display: flex;
-    align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     border: 2px solid #0039a6;
 }
 .close-popup-btn:hover {
@@ -303,7 +302,7 @@ body::after {
 .edit-btn-group .delete-member-btn { background: #d9042b; color: #fff; }
 .edit-btn-group .delete-member-btn:hover { background: #ff0033; }
 
-/* ===== أزرار الترتيب ===== */
+/* ===== أزرار ترتيب الأعضاء ===== */
 .move-buttons {
     display: flex;
     gap: 5px;
@@ -326,6 +325,33 @@ body::after {
     box-shadow: 0 0 20px rgba(0,57,166,0.4);
 }
 .move-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* ===== أزرار ترتيب أفضل 3 ===== */
+.top-move-buttons {
+    display: none;
+    gap: 5px;
+    margin-right: auto;
+}
+.edit-mode .top-move-buttons {
+    display: flex;
+}
+.top-move-buttons .move-btn {
+    padding: 4px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, #0039a6, #d9042b);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.top-move-buttons .move-btn:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+.top-move-buttons .move-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
 }
